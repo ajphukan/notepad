@@ -38,8 +38,8 @@ import os
 #set up
 
 window = Tk()
-window.title('Notepad 11.0')
-window.geometry("800x400") #set window size  W x h
+window.title('Notepad 12.Beta')
+window.geometry("800x500") #set window size  W x h
 window.resizable(0,0)
 
 #define text entry box
@@ -55,6 +55,7 @@ scr = Scrollbar(notetext)
 scr.config(command=txt.yview)
 txt.config(yscrollcommand=scr.set)
 txt.pack(side=LEFT)
+
 
 #place scroll bar in application
 
@@ -107,7 +108,7 @@ def savefile():
 		
 	
 def about_cmd():
-    label = tkMessageBox.showinfo("About", "Notepad by Paul Sutton")		
+    label = tkMessageBox.showinfo("About", "Notepad by Paul Sutton \n http://www.zleap.net",)		
 
 def exit_cmd():
 	if(char_count() == 0):
@@ -137,6 +138,7 @@ def char_count():
 	#txt.insert(END, chrcount)
 	txt.insert(END, '\n' + str(chrcount))
 	#return chrcount;
+
 	
 # create a menu
 def dummy():
@@ -171,11 +173,5 @@ helpmenu.add_command(label="About...", command=about_cmd)
 #window.config(menu=menubar)
 window.config(menu=menu)
 
+
 window.mainloop()
-
-#define text entry box
-notetext = Text(window, height=290, width=150)
-#display text entry box
-notetext.grid(row = 1, column = 3,)
-
-

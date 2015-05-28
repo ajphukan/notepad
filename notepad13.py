@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Notepad 11
+# Notepad 12 beta
 #
 #  Copyright 2014 Paul Sutton <psutton@zleap.net>
 #  
@@ -32,6 +32,8 @@ import tkMessageBox
 import sys
 import time
 import os
+from pygments import lex
+from pygments.lexers import PythonLexer
         
 #window = Tkinter.Tk(className=" Just another Text Editor")
 
@@ -55,6 +57,9 @@ scr = Scrollbar(notetext)
 scr.config(command=txt.yview)
 txt.config(yscrollcommand=scr.set)
 txt.pack(side=LEFT)
+
+#set up text formatting
+notetext.tag_configure("Token.Comment", foreground="#b21111")
 
 #place scroll bar in application
 
@@ -104,7 +109,9 @@ def savefile():
 	finally:
 		f.close()
 	
-		
+def syntax_highlight():
+		for token, content in lex(code, PythonLexer()):
+			notetext.insert("end", content, str(token))		
 	
 def about_cmd():
     label = tkMessageBox.showinfo("About", "Notepad by Paul Sutton")		
@@ -144,7 +151,28 @@ def dummy():
     
 def send2printer():
 	#os.system("lpr -P printer_name file_name.txt")
-	print ("printer feature not enabled")     
+	print ("printer feature not enabled")    
+	
+def displayasASCII():
+	txt.insert(END, '\n' ) # insert newline
+	box = txt.get('1.0', END+'-1c')
+	x = len(box)
+	str(box)
+	s = box
+	for c in s:
+		txt.insert(END, ord(c)) # insert ascII codes for each character in box
+		txt.insert(END, ' ' ) # insert spsaces
+	
+	
+def displayashex():
+	txt.insert(END, '\n' ) # insert newline
+	box = txt.get('1.0', END+'-1c')
+	x = len(box)
+	str(box)
+	s = box
+	for c in s:
+		txt.insert(END, hex(ord(c))) # insert ascII codes for each character in box
+		txt.insert(END, ' ' ) # insert spaces
     
 menu = Menu(window)
 window.config(menu=menu)
@@ -161,6 +189,12 @@ insertmenu = Menu(menu)
 menu.add_cascade( label="Insert", menu=insertmenu)
 insertmenu.add_command(label="Date/time", command=insert_date_time)		
 insertmenu.add_command(label="Character count", command=char_count)	
+insertmenu.add_command(label="Syntax Highlighting", command=syntax_highlight)
+
+insertmenu.add_command(label="Display as ASCII", command=displayasASCII)		
+insertmenu.add_command(label="Display as Hex", command=displayashex)	
+
+
 
 helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
