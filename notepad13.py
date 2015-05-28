@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Notepad 12 beta
-#
-#  Copyright 2014 Paul Sutton <psutton@zleap.net>
+# Notepad 13
+
+#  Copyright 2015 Paul Sutton <psutton@zleap.net>
 #  
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -110,8 +110,8 @@ def savefile():
 		f.close()
 	
 def syntax_highlight():
-		for token, content in lex(code, PythonLexer()):
-			notetext.insert("end", content, str(token))		
+		for token, content in lex(txt, PythonLexer()):
+			txt.insert("end", content, str(token))		
 	
 def about_cmd():
     label = tkMessageBox.showinfo("About", "Notepad by Paul Sutton")		
@@ -126,16 +126,7 @@ def exit_cmd():
 def insert_date_time():
 	dati = time.ctime() # set variable to grab the current date and time
 	txt.insert(END, dati) #insert date and time into the document
-	#print dati	# legacy test	
 
-#def char_count_print():
-#	msg = "Number of Characters : "
-#	chrcount = char_count()
-#	txt.insert(END, mag + chrcount)
-	
-	# insert a newline,  then insert the string to display the variable msg, convert the number of 
-	# characters to a string and then concatenate this to the previous inserts. 
-	txt.insert(END, '\n' + str(msg) + str(chrcount))
 
 def char_count():
 	#msg = "Number of Characters : "
@@ -150,7 +141,7 @@ def dummy():
     print ("I am a Dummy Command, I will be removed in the next step")
     
 def send2printer():
-	#os.system("lpr -P printer_name file_name.txt")
+	os.system("lpr -P printer_name file_name.txt")
 	print ("printer feature not enabled")    
 	
 def displayasASCII():
