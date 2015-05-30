@@ -32,23 +32,24 @@ import tkMessageBox
 import sys
 import time
 import os
-from pygments import lex
-from pygments.lexers import PythonLexer
+
         
 #window = Tkinter.Tk(className=" Just another Text Editor")
+
+
 
 #set up
 
 window = Tk()
-window.title('Notepad 11.0')
+window.title('Notepad 13.0')
 window.geometry("800x400") #set window size  W x h
-window.resizable(0,0)
+window.resizable(0,0) #wxh
 
 #define text entry box
-notetext = Text(window, height=750, width=580)  #set text box size
+notetext = Text(window, height=800, width=580)  #set text box size
 #display text entry box
-notetext.pack()
-notetext.grid(row = 1, column = 3,)
+#notetext.pack()
+#notetext.grid(row = 1, column = 3,)
 
 #code for scroll bars
 
@@ -57,6 +58,15 @@ scr = Scrollbar(notetext)
 scr.config(command=txt.yview)
 txt.config(yscrollcommand=scr.set)
 txt.pack(side=LEFT)
+
+#code for status bar
+
+test1 = "Notepad by Paul Sutton"
+
+
+status = Label(window, text=test1, bd=1, relief=SUNKEN, anchor=W)
+status.pack(side=BOTTOM, fill=X)
+#status.grid(row = 4, column = 3,)
 
 #set up text formatting
 notetext.tag_configure("Token.Comment", foreground="#b21111")
@@ -121,12 +131,11 @@ def exit_cmd():
 		sys.exit()
 	elif tkMessageBox.askokcancel("Quit", "Do you really want to quit?"):
 		sys.exit()
-		
+	
 		
 def insert_date_time():
 	dati = time.ctime() # set variable to grab the current date and time
 	txt.insert(END, dati) #insert date and time into the document
-
 
 def char_count():
 	#msg = "Number of Characters : "
@@ -153,8 +162,7 @@ def displayasASCII():
 	for c in s:
 		txt.insert(END, ord(c)) # insert ascII codes for each character in box
 		txt.insert(END, ' ' ) # insert spsaces
-	
-	
+
 def displayashex():
 	txt.insert(END, '\n' ) # insert newline
 	box = txt.get('1.0', END+'-1c')
@@ -191,6 +199,14 @@ helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
 helpmenu.add_command(label="About...", command=about_cmd)
 
+#toolbar
+
+def callback():
+    print "called the callback!"
+
+
+#toolbar end
+
 
 #display window
 #window.config(menu=menubar)
@@ -201,6 +217,7 @@ window.mainloop()
 #define text entry box
 notetext = Text(window, height=290, width=150)
 #display text entry box
-notetext.grid(row = 1, column = 3,)
+notetext.grid(row = 1, column = 4,)
+
 
 
