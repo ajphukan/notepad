@@ -33,11 +33,6 @@ import sys
 import time
 import os
 
-        
-#window = Tkinter.Tk(className=" Just another Text Editor")
-
-
-
 #set up
 
 window = Tk()
@@ -59,14 +54,36 @@ scr.config(command=txt.yview)
 txt.config(yscrollcommand=scr.set)
 txt.pack(side=LEFT)
 
+#code for tool bar
+
+# create a toolbar
+	
+toolbar = Frame(window)	
+
+def open_command():
+        file = tkFileDialog.askopenfile(parent=window,mode='rb',title='Select a file')
+        if file != None:
+            text = file.read()
+            txt.insert(END, text)
+            print file
+            file.close()	
+
+b = Button(toolbar, text="open", width=6, command=open_command)
+b.pack(side=LEFT, padx=2, pady=2)
+
+toolbar.pack(side=TOP, fill=X)	
+
+
+
 #code for status bar
 
 test1 = "Notepad by Paul Sutton"
 
-
 status = Label(window, text=test1, bd=1, relief=SUNKEN, anchor=W)
 status.pack(side=BOTTOM, fill=X)
 #status.grid(row = 4, column = 3,)
+
+#code for status bar end
 
 #set up text formatting
 notetext.tag_configure("Token.Comment", foreground="#b21111")
@@ -81,12 +98,7 @@ notetext.pack(side="left", fill="both", expand=True)
 def newfile():
 	txt.delete(1.0, END)
 	
-# legacy open file 	
-def openfile():
-	text = open("document.txt").read()
-	txt.delete(1.0, END)
-	txt.insert(END, text)
-	txt.mark_set(INSERT, 1.0)
+
 	
 def open_command():
         file = tkFileDialog.askopenfile(parent=window,mode='rb',title='Select a file')
@@ -172,6 +184,9 @@ def displayashex():
 	for c in s:
 		txt.insert(END, hex(ord(c))) # insert ascII codes for each character in box
 		txt.insert(END, ' ' ) # insert spaces
+	
+	
+#menu	
     
 menu = Menu(window)
 window.config(menu=menu)
@@ -193,24 +208,14 @@ insertmenu.add_command(label="Syntax Highlighting", command=syntax_highlight)
 insertmenu.add_command(label="Display as ASCII", command=displayasASCII)		
 insertmenu.add_command(label="Display as Hex", command=displayashex)	
 
-
-
 helpmenu = Menu(menu)
 menu.add_cascade(label="Help", menu=helpmenu)
 helpmenu.add_command(label="About...", command=about_cmd)
 
-#toolbar
-
-def callback():
-    print "called the callback!"
-
-
-#toolbar end
-
-
 #display window
 #window.config(menu=menubar)
 window.config(menu=menu)
+
 
 window.mainloop()
 
