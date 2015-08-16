@@ -25,6 +25,7 @@
 #printing to the printer#!/usr/bin/env python
 #add rot13 encoding http://code.activestate.com/recipes/578322-use-rot13-to-endecrypt-clear-text/ added v16
 #add highlighting version 16 http://pygments.org/docs/
+#fix issue with pressing x to close window and getting error http://stackoverflow.com/questions/3295270/overriding-tkinter-x-button-control-the-button-that-close-the-window
 
 #
 import Tkinter # note use of caps
@@ -44,10 +45,15 @@ from pygments.lexers import PythonLexer
 LOWER_LETTERS = [chr(x) for x in range(97, 123)];
 UPPER_LETTERS = [chr(x) for x in range(65, 91)];
 
+
+
+def doSomething():
+    # check if saving
+    # if not:
+   sys.exit()
+
 def newfile():
 	txt.delete(1.0, END)
-	
-
 	
 def open_command():
 	txt.delete(1.0, END)
@@ -174,12 +180,16 @@ window = Tk()
 window.title('Notepad 16.0')
 window.geometry("800x400") #set window size  W x h
 window.resizable(0,0) #wxh
+window.protocol('WM_DELETE_WINDOW', doSomething)  # root is your root window
+
 
 #define text entry box
 notetext = Text(window, height=800, width=580)  #set text box size
 #display text entry box
 #notetext.pack()
 #notetext.grid(row = 1, column = 3,)
+
+
 
 #code for scroll bars
 
