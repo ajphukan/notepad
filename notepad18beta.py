@@ -45,8 +45,6 @@ from pygments.lexers import PythonLexer
 LOWER_LETTERS = [chr(x) for x in range(97, 123)];
 UPPER_LETTERS = [chr(x) for x in range(65, 91)];
 
-
-
 def doSomething():
     # check if saving
     # if not:
@@ -62,25 +60,22 @@ def open_command():
 		txt.delete(1.0, END)
 		text = filename.read()
 		txt.insert(END, text)
-		name = askopenfilename()
-		print(name)
-		filename.close()	
+		filename.close()	   
+     
             
 def savefile():
 	print ("save file")
 	data = txt.get('1.0', END+'-1c')
         filename.write(data)
         filename.close()
-        
+    
+
 def saveas_command():
     filename = tkFileDialog.asksaveasfile(mode='w')
     if filename != None:
     # slice off the last character from get, as an extra return is added
         data = txt.get('1.0', END+'-1c')
         filename.write(data)
-        #filepath = tkFileDialog.asksaveasfilename()
-        #filepath = os.path.normpath(filepath)
-        #print "this is the file name ",fname
         filename.close()
 		
 
@@ -180,7 +175,7 @@ window = Tk()
 window.title('Notepad 16.0')
 window.geometry("800x400") #set window size  W x h
 window.resizable(0,0) #wxh
-window.protocol('WM_DELETE_WINDOW', doSomething)  # root is your root window
+window.protocol('WM_DELETE_WINDOW', doSomething)  # window is your root window
 
 
 #define text entry box
@@ -283,9 +278,9 @@ window.config(menu=menu)
 window.mainloop()
 
 #define text entry box
-notetext = Text(window, height=290, width=150)
+#notetext = Text(window, height=290, width=150)
 #display text entry box
-notetext.grid(row = 1, column = 4,)
+#notetext.grid(row = 1, column = 4,)
 
 
 
